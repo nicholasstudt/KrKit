@@ -1,0 +1,373 @@
+#!/usr/bin/perl -Tw
+######################################################################
+#
+# chkconfig: 345 85 15
+# description: Apache is a World Wide Web server.  It is used to serve \
+#	       HTML files and CGI.
+#
+######################################################################
+use strict;
+
+############################################################
+# Variables                                                #
+############################################################
+
+our $PS		= '/bin/ps';
+our $HTTPD 	= '/usr/sbin/httpd';
+our $CONF 	= '/etc/httpd/conf/';
+our $PID 	= '/var/run/httpd/';
+our $RC		= $CONF. 'servers';
+
+our $WIDTH  = 59;
+our $OK 	= "[  OK  ]\n";
+our $FAILED = "[FAILED]\n";
+
+############################################################
+# Functions                                                #
+############################################################
+
+#-------------------------------------------------
+# fill_sites 
+#-------------------------------------------------
+sub fill_sites {
+	my %sites;
+
+	if ( ! open( LIST, $RC ) ) {
+		die "Can't open $RC: $!";
+	}
+
+	while ( my $entry = <LIST> ) {
+		next if ( $entry =~ /^#/ );
+		next if ( $entry =~ /^\s+$/ );
+		next if ( $entry eq '' );
+
+		chomp( $entry );
+
+		my ( $ident, $file, $name ) = split( /\|/, $entry );
+
+		$file =~ m/^([-.\/a-zA-Z_]+)$/;
+
+		$sites{$ident}{name} = $name;
+		$sites{$ident}{conf} = $1;
+	}
+
+	close( LIST );
+
+	return( \%sites );
+} # END fill_sites 
+
+#-------------------------------------------------
+# chkconfig_server( $sites, $server )
+#-------------------------------------------------
+sub chkconfig_server {
+	my ( $sites, $server ) = @_;
+
+	my $said = "Checking config $$sites{$server}{name} http: ";
+	print $said . " " x ( $WIDTH - length( $said ) );
+
+	my $output = "";
+
+	my $command = "$HTTPD -t -f $CONF/$$sites{$server}{conf} 2>&1";
+
+	my $pid = open( README, "$command |" )  or die "Couldn't fork: $!\n";
+
+	while ( my $line = <README> ) {
+		$output .= $line;
+	}
+
+	close( README );
+
+	if ( $output !~ /Syntax\s+OK/ ) {                      
+		print $FAILED;
+		print $output."\n";
+		return 0;                     
+	}
+	else {                          
+		print $OK;
+		return 1;                     
+	}     
+} # END chkconfig_server
+
+#-------------------------------------------------
+# stop_server( $sites, @site )
+#-------------------------------------------------
+sub stop_server {
+	my ( $sites, @site ) = @_;
+
+	for my $server ( @site ) {
+
+		my $said = "Shutting down $$sites{$server}{name} http: ";
+		print $said . " " x ( $WIDTH - length( $said ) );
+
+		my $pidfile = "$PID${server}.pid";
+
+		if ( ! open (PIDFILE, "<$pidfile") ) {
+			print $FAILED; 
+			return();
+		}
+
+		my $pidline = <PIDFILE>;
+
+		chomp( $pidline );
+
+		close( PIDFILE );
+
+		if ( $pidline =~ m@^(\d{1,7})$@ ) {
+			if ( kill( "TERM", $1 ) != 1 ) {
+				print $FAILED; 
+				die "Couldn't kill process $1: $!\n";
+			}
+		}
+		else {
+			print $FAILED; 
+			die "Couldn't read '$pidline' as a PID\n";
+		}
+
+		print $OK;
+	}
+} # END stop_server
+
+#-------------------------------------------------
+# start_server( $sites, $check, @site )
+#-------------------------------------------------
+sub start_server {
+	my ( $sites, $check, @site ) = @_;
+
+	for my $server ( @site ) {
+
+		next if ( $check && ! chkconfig_server( $sites, $server ) );
+
+		my $said = "Starting $$sites{$server}{name} http: ";
+		print $said . " " x ( $WIDTH - length( $said ) );
+
+		my $return = system( $HTTPD, "-f", "$CONF$$sites{$server}{conf}" );
+
+		print( ( $return >> 8 ) ? $FAILED : $OK ) ;
+	}
+} # END start_server
+
+#-------------------------------------------------
+# stat_server( $sites, @sites )
+#-------------------------------------------------
+sub stat_server {
+	my ( $sites, @site ) = @_;
+	
+	for my $server ( @site ) {
+		my $said = "Testing $$sites{$server}{name} http: ";
+		print $said . " " x ( $WIDTH - length( $said ) );
+
+		my $pidfile = "$PID${server}.pid";
+
+		if ( ! open (PIDFILE, "<$pidfile") ) {
+			print $FAILED; 
+			return();
+		}
+
+		my $pidline = <PIDFILE>;
+
+		chomp( $pidline );
+
+		close( PIDFILE );
+
+		if ( $pidline =~ m@^(\d{1,7})$@ ) {
+			my @ret = "";
+			
+			if ( $pidline =~ /^(\d+)$/ ) {
+				push( @ret, `$PS -$1` );
+			}
+			# Actually check here.
+
+			if ( scalar( @ret ) > 1 ) {
+				print $OK;
+			}
+			else {
+				print $FAILED; 
+			}
+		}
+		else {
+			print $FAILED; 
+			die "Couldn't read '$pidline' as a PID\n";
+		}
+	}
+} # END stat_server
+
+#-------------------------------------------------
+# restart_server( $sites, @site )
+#-------------------------------------------------
+sub restart_server {
+	my ( $sites, @site ) = @_;
+
+	for my $server ( @site ) {
+		next if ( ! chkconfig_server( $sites, $server ) );	
+
+		stop_server( $sites, $server );
+
+		sleep(2); # Slow things down a bit.
+
+		start_server( $sites, 0, $server );
+	}
+
+	sleep(2); # Slow them down some more.
+
+	stat_server( $sites, @site );
+
+} # END restart_server
+
+######################################################################
+# Main Execution Begins Here                                         #
+######################################################################
+eval {
+	$| = 1;
+
+	# The place to hold what to do in what order.
+	my ( @site, @bad );
+
+	# Make our environment more safe.
+	delete @ENV{qw(IFS CDPATH ENV BASH_ENV PERL5LIB)};
+	$ENV{PATH} 	= '';
+	$ENV{SHELL} = '/bin/sh';
+
+	if ( scalar( @ARGV ) < 1 ) {
+		print "Usage: $0 {start|stop|restart|chkconfig|stat} [site(s)].\n";
+		exit;
+	}
+
+	# Pull off the action.
+	my $action 	= shift( @ARGV );
+	my $sites	= fill_sites();
+
+	# Figure out what to operate on.
+	if ( scalar( @ARGV ) > 0 ) {
+
+		foreach my $server ( @ARGV ) {
+			if ( defined $$sites{$server} && $server =~ /^([a-zA-Z_-]+)$/ ) {
+				push( @site, $1 ); 
+			}
+			else {
+				push( @bad, $server );
+			}
+		}
+	}
+	else {
+	 	push( @site, keys( %{$sites} ) ); 
+	}
+
+	# Check to make sure we have something to operate on.
+	if ( scalar( @bad ) > 0 ) {
+		print 'The following sites were not found: '. join( ', ', @bad ). "\n";
+		exit;
+	}
+
+	if ( $action eq 'start' ) {
+		start_server( $sites, 1, @site );
+
+		sleep(2); # Wait for a second (or two ).
+
+		stat_server( $sites, @site );
+	}
+	elsif ( $action eq 'stop' ) {
+		stop_server( $sites, @site );
+	}
+	elsif ( $action eq 'restart' ) {
+		restart_server( $sites, @site );
+	}
+	elsif ( $action eq 'stat' ) {
+		stat_server( $sites, @site );
+	}
+	elsif ( $action eq 'chkconfig' ) {
+		foreach my $server ( @site ) {
+			chkconfig_server( $sites, $server );
+		}
+	}
+	else {
+		print "Usage: $0 {start|stop|restart|chkconfig|stat} [site(s)].\n";
+	}
+};
+
+print "Error: $@\n" if ( $@ );
+
+# EOF
+1;
+
+__END__
+
+=head1 NAME 
+
+httpd.rc - http daemon management
+
+=head1 SYNOPSIS
+
+ httpd.rc {start|stop|restart|chkconfig|stat} [site(s)]
+
+=head1 DESCRIPTION
+
+A perl re-implementation of the httpd management script, located
+originally in /etc/rc.d/init.d/httpd, to include the ability to manage
+multiple httpd daemons running seperate sites. 
+
+=head1 USAGE
+
+=over 4
+
+=item start
+
+Starts the httpd daemons. The config is checked before any attempt is made to start the deamon.
+
+=item stop
+
+Stops the httpd daemons.
+
+=item restart 
+
+Restarts the httpd daemons. Before the deamons are restarted the configuration
+is checked to prevent turning off any daemon that will not ( in theory ) come
+back automaticly.
+
+=item chkconfig 
+
+Checks the configs of the httpd daemons.
+
+=item stat
+
+Checks to see if the httpd daemons are running.
+
+=back
+
+=head1 CONFIGURATION
+
+The "server" file is how this script knows what to service and how to
+call it. 
+
+The file is laid out as follows:
+
+  # Comments
+  core|httpd.conf|Core Server
+  <ident>|<config file>|<Pretty Name>
+
+Blank lines are skipped.
+
+=head1 SEE ALSO
+
+httpd(1), KrKit(3), /etc/httpd/conf/servers
+
+=head1 BUGS
+
+The pid file should be named for the same as the ident of the server,
+it's kinda assumed so make life easy. 
+
+Occasionally the stat for a server fails but the server is in fact
+already running. The only way to fix this is to lenghten the sleep
+before the stat happens. Slow machines or larger configs can cause this.
+
+=head1 AUTHOR
+
+Nicholas Studt <nstudt@angrydwarf.org>
+
+=head1 COPYRIGHT
+
+Copyright (c) 1999-2005 by Nicholas Studt. All rights reserved.
+
+You may distribute under the terms of either the GNU General Public
+License or the Artistic License, as specified in the Perl README file.
+
+=cut

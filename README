@@ -1,0 +1,62 @@
+
+ KrKit - mod_perl 2.0 application development libraries
+ ======================================================
+
+ Copyright (c) 1999-2007 Nicholas Studt / Ron Andrews. All rights reserved.
+
+ You may distribute under the terms of either the GNU General Public
+ License or the Artistic License, as specified in the Perl README file.
+
+
+ Overview
+ --------
+
+ KrKit is primarily a web application development library. It contains
+ simplified database connectivity, user authorization and
+ authentication, a template system, a help system, inherited method
+ handlers to simplfy development, and much more. 
+
+ The single biggest stregth of this development library is that unlike
+ most other environments is that the developer can use or discard the
+ portions that they need. Every library is easy to Superclass or simple
+ discard as you, the developer, see fit. While these libraries work in
+ the situations we have encountered, yours may be different, and your
+ development environment shouldn't work against you.
+
+ The Latest Version
+ ------------------
+
+ The latest version can be found on the KrKit project site at
+
+ 	http://www.krkit.org
+
+
+ Installation
+ ------------
+
+ Before installing this library be sure to have the following modules
+ installed:
+
+	DBI
+	Date::Calc
+	Net::SMTP
+
+	mod_perl-1.99_20
+	libapreq2-2.05
+
+ To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+ Contributers
+ ------------
+ 
+ Nicholas Studt <nstudt@angrydwarf.org>         http://www.angrydwarf.org
+ Ron Andrews    <ron.andrews@cognilogic.net>    http://turtle.cognilogic.net
+
+ Paul Espinosa  <paul@krkit.org>                http://www.ericius.com
+ D. Hageman     <dhageman@dracken.com> 
+ Frank Wiles    <frank@wiles.org>               http://www.wiles.org

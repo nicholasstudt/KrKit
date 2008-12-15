@@ -1,0 +1,200 @@
+ Revision history for Perl extension KrKit.
+ ------------------------------------------
+ 
+ This should contain the high points of changes between versions.
+
+-- Random Notes --
+ - How do you make an application namespace aware the easiest way?
+ - Make an "opt" method to the handler to set/get variables.
+ - Close down all "dirty" OO hacks used in code.
+ - Move database connections/disconnections to init_app/cleanup_app
+   maybe use actuall OO inheritance stuff so they can be named correctly
+   -- SUPER call based stuff.
+
+ - Should KrKit just die and we port everything to Gantry ?
+------------------
+
+0.21
+	- use "our" for ISA, EXPORT etc.
+	- config table addition.
+	- Handler no longer dependant on ht_lines.
+	- Removed the unimplemented ML portion of the tree.
+	- Removed the unimplemented auth user sync.
+	- Username field to allow for symbols, this allows for email based
+	  usernames.
+	- ht_p can now accept data like ht_td.
+	- ht_tr can now accept data like ht_td.
+	- Fixed a problem with exists vs defined.
+
+0.20
+	- Updating to the Apache2::* naming convention for mod_perl 2.000001
+	- Adjusted includes to allow for non / and ~/ entries that will
+	  check for that file in the cwd and then back down the tree until
+	  it is found.	
+	- Added a $site->param to the handler. This solves the
+	  Apache2::Request tables immutable status change.
+	- Added group management to the Users.pm so you can edit the groups
+	  via a multiple select box on the user add/edit screen. This is
+	  mostly for an example of working multiple selects in action.
+
+0.19 Mon May 16 15:10:30 CDT 2005
+	- Added dbschmea to the $site variable to facilitate schema usage.
+	  The PerlSetVar is "DatabaseNameSpace", the default is "public". [NS] 
+	- Fixed a typo in Control.pm's get_grid function. [NS]
+	- Added db_getnamespace to DB.pm, currenlty only PostgreSQL is
+	  supported. [NS]
+	- auth_pages -> auth_acl [NS]
+	- Auth::Control::Pages -> Auth::Control::ACLs [NS]
+	- Auth::Control::Authz::PageBased -> Auth::Control::Authz::ACL [NS]
+	- Control::ACLs is complete. [NS]
+	- Removed Pages from the repository. [NS]
+	- Removed PageBased from the repository. [NS]
+
+0.18 Sun Mar 20 14:28:59 CST 2005
+	- Added ht_span and ht_em. These follow the same data handling as
+	  ht_div. [pe and ns]
+
+0.17 Thu Feb 17 20:50:52 CST 2005
+	- Added an explination of the XpanderDB file permissons to
+	  KrKit::Xpander [NS]
+	- Added notes to Auten and Control::Users about the first time use
+	  of authentication. Summary: Add a user before turning on
+	  authentication. [NS]	
+	- Patch to add ul and ol support to the HTML library. [PE]
+	- Patch to add documentation for ul/ol. [PE]
+
+0.16 Sat Feb  5 22:28:14 CST 2005
+	- Added $site->_decline to return declined. This allows the
+	  applications to not need to require Apache::Const if they simply
+	  return declined. [NS]
+	- Moved the httpd.conf file to docs/apache/httpd-krkit.conf [NS]
+	- Working on the default template.  [NS]
+	- Started on the ML subsystem. [NS]
+	- Documentation work [NS]
+
+0.15 Tue Jan  4 19:48:32 CST 2005
+	- Updated the copyright. [NS]
+	- Re-added test for returning Declined from handler. [NS]
+
+0.14 Thu Dec 30 20:46:43 CST 2004
+	- Fixing sendfile to use files and not file handles since handles
+	  are not supported.
+
+0.13 Thu Dec 30 10:20:52 CST 2004
+	- Working on the default template some, need to figure out what to
+	  make this look and function like.
+	- Removed the Porting document from the docs directory, I never did
+	  write a good porting from mod_perl 1 to 2 document.
+	- removed the remote field from auth_users.
+	- Added _cleanup_app since we should have that.
+
+0.12 Sun Dec 26 18:41:38 CST 2004
+	- Fixed a bug with saving cookies.
+
+0.11 Thu Dec 23 21:29:18 CST 2004
+	- Fixed cookie reading in AppBase.
+	- Put in a default for max post size. 3 MB.
+
+0.10 Thu Dec 23 09:41:36 CST 2004
+	- Put cleanroot back into the mix. Sent email to the mod_perl list
+	  about path_info. Looks like path_info is known odd with nested
+	  locations.
+	- Added the frame option to the help category admin.
+	- Adjusted the help viewer to use the framing option.
+	- Removed the usage of AppBase where it wasn't needed with the
+	  functions that moved.
+
+0.09 Wed Dec 22 21:44:41 CST 2004
+	- Stubbed out the default template, this still needs work.
+	- Fixed the html in Helper::Category and Helper::Category::Items
+	- Rechecking path_info, produces some problems with nested
+	  locations. My have to revert to cleanroot like functionality.
+
+0.08 Wed Dec 22 10:38:41 CST 2004
+	- Altered Control::Groups to use ht_checkbox for checkboxes.
+	- Altered Control::Pages to use ht_checkbox for checkboxes.
+	- Completed the port of Control::Authen, Control::Authz,
+	  Control::Authz::PageBased, Control::Access, and
+	  Control::Authen::Cookie.
+	- Added the ability to use $site->_init_app to the handler, this
+	  allows the augmentation of _init without changeing the default or
+	  having to copy it in, should make it easier to deal with
+	  applications as well. The module Helper::Category::Items is
+	  currently using this functionality.
+	- removed appbase_cleanroot $r->path_info does the same thing.
+	- moved appbase_relocate into the handler as a method _relocate.
+	- Adjusted the handler to redirect and decline faster. It was not
+	  skipping the framing on a redirect.
+	- Removed checkbox support in ht_input.
+
+0.07 Tue Dec 21 20:56:24 CST 2004
+	- Completed port of Control::Pages and Control::Groups.
+
+0.06 Tue Dec 21 16:41:58 CST 2004
+	- Fixed sql_update to add a space before the where clause.
+	- put a warning in ht_input, checkbox, that they should use
+	  ht_checkbox instead.
+	- added ht_checkbox, works like ht_radio does.
+	- Stubbed out the user sync script, ie it has some comments.
+	- Imported Control::Authen::Cookie from magic
+	- Update the auth schema a bit, add user_id and remote to
+	  auth_users, add ident to auth_groups
+	- Changed Owner to User in pages.
+	- Added "frame varchar" to help_categories, this allows for by
+	  category framing, so seperate applications can be framed
+	  differently.
+	- Completed port of Xpander::Admin.
+	- Completed port of Control
+	- Completed port of Helper, Helper::Category, and Helper::Category::Items.
+	- Completed port of Control::Users
+
+0.05 Fri Dec 17 22:17:54 CST 2004
+	- Ported the new Magic::Control::Access ip access control handler
+	  into the library.
+	- The $in->{variable} notation works in
+	  libapreq-2.05-snapshot-2004-11-29 with mod_perl-1.99.17.
+	- Removed the AUTOLOAD from Handler using ->can instead.
+	- Moved KrKit.conf to httpd.conf
+
+0.04 Tue Jun 29 16:12:22 CDT 2004
+	- $r->dir_config must be used from Apache::ServerUtil or it gives
+	  the wrong answer.
+	- Updated Const usage to -compile and Apache::*
+	- Working on $in problem some more...
+	- $r->sendfile ordering problem confirmed with Stas, way to get the
+	  ordering correct is to rflush() before sendfile() more info at:
+	  http://mathforum.org/epigone/modperl/twaxnaldbu
+	- All handlers have been modified from "sub handler ($$)" to "sub
+	  handler : method"
+	- All handlers now take "my ( $self, $r ) = @_;"
+	- Updated copyright information in all of the modules.
+	- Framing::Template no honors the date and time formats from
+	  PerlSetVars, like all other handlers.
+	- recieved feedback on the $r->content and Apache::Request issues I
+	  have been seeing. Full discussion located at:
+	  http://www.mathforum.org/epigone/modperl/selfrerdkrei
+
+0.03 Mon Jun 28 16:25:11 CDT 2004
+	- Configuration defaults: Files_* -> File_* 
+	- Completed Handler, AppBase, Framing, Framing::Plain,
+	  Framing::Template, Xpander,
+	- Xpander can now server files correctly. Need to figure out why I
+	  must $r->flush before the file send, something seems odd about
+	  this.
+	- Xpander::Admin is under construction. Trying to work out how to
+	  get and set form data reliably.
+
+0.02 Sat Jun 26 22:32:50 CDT 2004
+	- Cleaned up the httpd.rc script.
+	- Imported everything into CVS.
+	- Ported DB, SQL, Validate, and HTML. These modules do not depend on
+	  mod_perl, hence this was mostly renaming the Module and their
+	  dependancies.
+	- sql_update change to not assume the "WHERE" in the clause
+	  statement, this was a dangerous behavoir.
+	- Added the Porting document do the docs tree this will track all
+	  changes that need to be made to existing applications for them to
+	  work with the new libraries.
+
+0.01 Fri Jun 26 22:27:35 2004
+	- copied in the Magic ( apache 1.0 ) versions of the code as a base.

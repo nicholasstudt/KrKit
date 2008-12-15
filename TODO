@@ -1,0 +1,69 @@
+
+ Note
+ ----
+
+ The following is a list of ideas that may or may not work their way
+ into the KrKit libraries. (It is probably safe to assume that most of
+ these will make it into the library.)
+ 
+ 	- Nicholas
+
+
+-[ Todo ]--------------------------------------------------------------
+
+* Finish the ACL support fuctions.
+* Fix the ACL based Authz hander
+* Adjust everything in control for namespaces
+* Adjust everything in control to handle multiple results from acl.
+
+
+* Control::Access 				(Needs Testing)
+* Control::Authen::Cookie 		(Needs Testing)
+
+* Documentation
+	- Document the dependances and the configuration.
+
+* General
+	- Ensure that all modules that produce HTML are valid. 
+		- Fix the calendar html.
+		- Fix the help viewer html.
+	- Make the default.tp prettier.
+	- Adjust is_date to take a format for the date to validate. Use the
+	  strftime notation, but only handle month, day, and year.
+	- Add help documentation sql to the module when it's done.
+
+	- Modify the build to not install the mod_perl parts if you don't
+	  have mod_perl. This should be a makefile option.
+
+* User Authentication
+	- Add LDAP based authentication and authorization modules.
+
+	- Finish cookie based authentication.
+	- Auth cookie should work in one of two ways
+		1) Just like regular auth with the popup.
+		2) a non-popup auth login form.
+
+* User management script.
+	- Allow two modes of group syncing operation, duplicate the
+	  authentication database and just pull over the people from one
+	  group and add them to a group ( or no group ) in the new
+	  authentication database.
+
+* Help System
+	- dump the help info in a way that allows that preserves the
+	  integrety of the links.
+	- A way to add this to another database but not break anything.
+	  Should operate enmass or by a specfic application or tree.
+
+* Template System:
+	- Convert existing template stuff to the yacc like stuff.
+	- Add template toolkit like variables to framing.
+	- Add loops and other control structures to framing.
+	- Turn it into an output filter. 
+
+* HTML 
+	- Make html do all of the html tags. Make them compatable with xhtml 1.0 
+	- create a ML tree that works like dbi for html, xhtml, sgml, xml,
+	  etc. We only need html4.01, xhtml1.0 to start. The individual
+	  libraries will need the spec version so we can update it correctly
+	  in the future.

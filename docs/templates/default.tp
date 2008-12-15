@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+			"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	
+<title>
+##PAGE_TITLE##
+</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css" media="screen">
+
+body {
+	margin: 0px 10px;
+	padding: 0px;
+	background: #787878;
+	font-size: 12pt;
+	font-family: sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a[rel="new"] {
+ 	background: transparent url('/images/stock_graphic-styles-16.png') no-repeat 4px; 
+	padding-left: 21px; 
+}
+
+input[name="submit"] {
+ 	background: transparent url('/images/stock_calc-accept-16.png') no-repeat 4px;
+	padding-left: 21px; 
+}
+
+input[name="cancel"] {
+ 	background: transparent url('/images/stock_calc-cancel-16.png') no-repeat 4px;
+	padding-left: 21px; 
+}
+
+h1 {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: 0.8em;
+	font-weight: bold;
+	margin: 5px 0 0 0;
+	line-height:1.2em;
+}
+
+h3 {
+	font-weight:bold;
+	font-size: 0.7em;
+	margin:0 0 2px 0;
+}
+
+h4 {
+	font-size: 0.6em;
+	font-weight: normal;
+	margin: 0;
+}
+
+#page {
+	background: #fff;
+	margin: 0px auto;
+	text-align: left;
+	width: 750px;
+	border: 1px solid black;
+}
+
+#header {
+	text-align: left;
+	font-size: 1.8em;
+	font-weight: bold;
+	padding: 20px 10px 5px 10px;
+	margin: 0;
+	color: white;
+	background: #568;
+	border-bottom: 3px solid #9ab;
+}
+
+#content {
+	margin: 0px auto;
+	background: #fff;
+	padding: 10px;
+	min-height: 400px;
+}
+
+#content h1 {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#footer {
+	padding: 2px;
+	font-size: .7em;
+	text-align: right;
+
+	padding: 5px 10px 5px 10px;
+	margin: 0;
+	color: white;
+	background: #568;
+	border-top: 3px solid #9ab;
+
+}
+
+#nav {
+	font-size: .7em;
+	border-bottom: 3px #284950 solid;
+}
+
+#nav ul {
+ 	padding: 0px 0px;
+ 	margin: 0px;
+ 	list-style-type: none;
+ 	background-color: #036;
+ 	color: #FFF;
+ 	text-align: right;
+}
+
+#nav li {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+
+#nav li a {
+ 	text-decoration: none;
+ 	background-color: #036;
+ 	color: #FFF;
+ 	padding: 0px 1em;
+	margin: 0px;
+ 	border-left: 1px solid #fff;
+}
+
+#nav li a:hover {
+ 	background-color: #369;
+ 	color: #fff;
+}
+
+div.box {
+	font-size: .8em;
+	border: 1px solid black;
+	padding: 0px 0px 0px 0px;
+	margin: 10px 0px 0px 0px;
+}
+
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+
+.hdr {
+	background: #bfbfbf;
+}
+                                                                                
+.chdr {
+	background: #bfbfbf;
+	text-align: center;
+}
+                                                                                
+.rhdr {
+	background: #bfbfbf;
+	text-align: right;
+	white-space: nowrap;
+}
+                                                                                
+.shd {
+	background: #dfdfdf;
+}
+                                                                                
+.cshd {
+	background: #dfdfdf;
+	text-align: center;
+}
+
+.rshd {
+	background: #dfdfdf;
+	text-align: right;
+	white-space: nowrap;
+}
+                                                                                
+.dta {
+}
+                                                                                
+.cdta {
+	text-align: center;
+}
+                                                                                
+.rdta {
+	text-align: right;
+	white-space: nowrap;
+}
+
+input, textarea {
+	border: 1px solid #123;
+	padding: 2px;
+	margin: 1px 2px 1px 2px;
+}
+
+textarea {
+/*	width: 100%; */
+/*	height: 16em; */
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="page">
+
+	<h1 id="header">KrKit</h1>
+
+	<div id="nav">
+		<ul>
+			<li><a href="/admin">Home</a></li>
+			<li><a href="/admin/xpander">Xpander</a></li>
+			<li><a href="">Access Control</a>
+				<!-- <ul>
+					<li><a href="/admin/users">Users</a></li>
+					<li><a href="/admin/groups">Groups</a></li>
+					<li><a href="/admin/pages">Pages</a></li>
+				</ul> -->
+			</li>
+			<li><a href="/admin/help">Help Admin</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+Need to work out how to do drop down menus from the main nav for
+applications.
+
+##BODY_TEXT##
+	</div>
+
+	<div id="footer">
+		Generated for 
+##USER_NAME## 
+at 
+##STRFTIME##
+	</div>
+</div>
+
+</body>
+</html>
