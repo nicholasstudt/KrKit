@@ -14,7 +14,7 @@
  - Should KrKit just die and we port everything to Gantry ?
 ------------------
 
-0.21
+0.21 Mon Dec 15 21:27:51 CST 2008
 	- use "our" for ISA, EXPORT etc.
 	- config table addition.
 	- Handler no longer dependant on ht_lines.
