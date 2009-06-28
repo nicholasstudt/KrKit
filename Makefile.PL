@@ -15,9 +15,8 @@ WriteMakefile(
 							"mod_perl2"			=> "0"
 						}, # e.g., Module::Name => 1.1
 
-   'INSTALLSCRIPT' 	=> '/usr/local/bin',
-   'EXE_FILES' 		=> [ 	'bin/httpd.rc',
-   						],
+#   'INSTALLSCRIPT' 	=> '/usr/local/bin',
+#   'EXE_FILES' 		=> [ 	'bin/httpd.rc', ],
 
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/KrKit.pm', # retrieve abstract from module

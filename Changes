@@ -14,6 +14,9 @@
  - Should KrKit just die and we port everything to Gantry ?
 ------------------
 
+0.22
+	- Commented out install of httpd.rc file.
+
 0.21 Mon Dec 15 21:27:51 CST 2008
 	- use "our" for ISA, EXPORT etc.
 	- config table addition.
