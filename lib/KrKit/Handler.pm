@@ -12,7 +12,7 @@ use KrKit::AppBase;
 use KrKit::DB;
 
 #-------------------------------------------------
-# $site->_cleanroot( $uri, $root )
+# $site->_cleanroot($uri, $root)
 #-------------------------------------------------
 sub _cleanroot {
 	my ($site, $uri, $root) = @_;
@@ -25,7 +25,7 @@ sub _cleanroot {
 } # END $site->_cleanroot
 
 #-------------------------------------------------
-# $site->_cleanup( $r )
+# $site->_cleanup($r)
 #-------------------------------------------------
 sub _cleanup {
 	my ($site, $r) = @_;
@@ -47,63 +47,49 @@ sub _decline {
 } # END $site->_decline
 
 #-------------------------------------------------
-# $site->_init( $r );
+# $site->_init($r);
 #-------------------------------------------------
 sub _init {
 	my ($site, $r) = @_; 
 
 	# Page specfic variables
-	$site->_option('uri', $r->uri);
-	$site->_option('rootp', $r->location);
-	$site->_option('contenttype', 'text/html');
-	$site->_option('onpage_title', ''); 
-	$site->_option('frame', $r->dir_config('Frame'));
-	$site->_option('page_title', $r->dir_config('SiteTitle') || '');
+	$site->option('uri', $r->uri);
+	$site->option('rootp', $r->location);
+	$site->option('contenttype', 'text/html');
+	$site->option('onpage_title', ''); 
+	$site->option('frame', $r->dir_config('Frame'));
+	$site->option('page_title', $r->dir_config('SiteTitle') || '');
 
 	# Not always used or set.
-	$site->_option('help', $r->dir_config('HelpRoot') || '' );
-	$site->_option('smtp_host', $r->dir_config('SMTP_Host') || '');
+	$site->option('help', $r->dir_config('HelpRoot') || '' );
+	$site->option('smtp_host', $r->dir_config('SMTP_Host') || '');
 
 	# File Upload Variables.
-	$site->_option('file_tmp', $r->dir_config('File_Temp') || '/tmp');
-	$site->_option('file_path', $r->dir_config('File_Path') || '/tmp');
-	$site->_option('file_uri', $r->dir_config('File_URI') || '/tmp');
-	$site->_option('file_max', $r->dir_config('File_PostMax') || '3145728');
+	$site->option('file_tmp', $r->dir_config('File_Temp') || '/tmp');
+	$site->option('file_path', $r->dir_config('File_Path') || '/tmp');
+	$site->option('file_uri', $r->dir_config('File_URI') || '/tmp');
+	$site->option('file_max', $r->dir_config('File_PostMax') || '3145728');
 		# 3MB post max limit.
 
 	# Date/Time formats.
-	$site->_option('fmt_d', $r->dir_config('Date_Format') || '%x');
-	$site->_option('fmt_t', $r->dir_config('Time_Format') || '%X');
-	$site->_option('fmt_dt', $r->dir_config('DateTime_Format') || '%x %X');
+	$site->option('fmt_d', $r->dir_config('Date_Format') || '%x');
+	$site->option('fmt_t', $r->dir_config('Time_Format') || '%X');
+	$site->option('fmt_dt', $r->dir_config('DateTime_Format') || '%x %X');
 
 	# Must happen last. 
 	my $dbns = $r->dir_config('DatabaseNameSpace');
-	$site->_option('dbtype', $r->dir_config('DatabaseType'));
-	$site->_option('dbns', db_getnamespace($$site{dbtype}, $dbns));
-	$site->_option('dbh', db_connect(appbase_get_dbparam($r)));
+	$site->option('dbtype', $r->dir_config('DatabaseType'));
+	$site->option('dbns', db_getnamespace($$site{dbtype}, $dbns));
+	$site->option('dbh', db_connect(appbase_get_dbparam($r)));
 	
 	return();
 } # END $site->_init
 
 #-------------------------------------------------
-# $site->_option( $name, $value )
-#-------------------------------------------------
-sub _option {
-	my ($site, $name, $value) = @_;		
-
-	if ( defined $value ) { 
-		$site->{$name} = $value;
-	}
-	else {
-		return($site->{$name})
-	}
-} # END $site->_option()
-
-#-------------------------------------------------
-# $site->_relocate( $r, $location )
+# $site->_relocate($r, $location)
 #-------------------------------------------------
 sub _relocate {
-	my ( $site, $r, $location ) = @_;
+	my ($site, $r, $location) = @_;
 	
 	die( 'Invalid apache request object.' ) if ( ! defined $r );
 
@@ -111,37 +97,37 @@ sub _relocate {
 
 	$$site{_redirect_} = 1; # Tag it for the handler to handle nice.
 
-	$r->headers_out->set( 'Location' => $location );
+	$r->headers_out->set('Location' => $location);
 
-	$r->status( Apache2::Const::REDIRECT ); 
+	$r->status(Apache2::Const::REDIRECT); 
 
-	return( Apache2::Const::REDIRECT );
+	return(Apache2::Const::REDIRECT);
 } # END $site->_relocate 
 
 #-------------------------------------------------
-# $self->handler( $r );
+# $self->handler($r);
 #-------------------------------------------------
 sub handler : method {
-	my ( $class, $r ) = @_;
+	my ($class, $r) = @_;
 
 	my $self 	= {};
 	my @txt;
 
-	bless( $self, ref( $class ) || $class );	# Yes, they are meek.
+	bless($self, ref($class) || $class);	# Yes, they are meek.
 
 	eval { 								
-		my @p 		= $self->_cleanroot( $r->uri, $r->location );
+		my @p 		= $self->_cleanroot($r->uri, $r->location);
 		my $action 	= 'do_'. ( shift( @p ) || 'main' );
 
-		if ( $self->can( $action ) ) { 	
+		if ( $self->can($action) ) { 	
 
-			$self->_init( $r ); 		# Init
-			$self->_init_app( $r ) if ( $self->can( '_init_app' ) );
+			$self->_init($r); 		# Init
+			$self->_init_app($r) if ( $self->can('_init_app') );
 
-			push( @txt, $self->$action( $r, @p ) );
+			push( @txt, $self->$action($r, @p) );
 		
-			$self->_cleanup( $r );		# Cleanup.
-			$self->_cleanup_app( $r ) if ( $self->can( '_cleanup_app' ) );
+			$self->_cleanup($r);		# Cleanup.
+			$self->_cleanup_app($r) if ( $self->can('_cleanup_app') );
 		}
 		else {
 			$$self{_decline_} = 1;
@@ -150,40 +136,40 @@ sub handler : method {
 		$$self{_decline_} = 1 if ( $txt[0] eq Apache2::Const::DECLINED );
 	};
 
-	return( Apache2::Const::REDIRECT ) if ( $$self{_redirect_} ); 	# 302
-	return( Apache2::Const::DECLINED ) if ( $$self{_decline_} );	# 404
+	return(Apache2::Const::REDIRECT) if ( $$self{_redirect_} ); # 302
+	return(Apache2::Const::DECLINED) if ( $$self{_decline_} );	# 404
 
-	push( @txt, '<b>Error:</b><br /><i>', $@, '</i>' ) if ( $@ );
+	push(@txt, '<b>Error:</b><br /><i>', $@, '</i>') if ( $@ );
 
 	eval {
-		my $frame = appbase_get_frame( $r, $$self{frame} );
+		my $frame = appbase_get_frame($r, $$self{frame});
 
-		$r->content_type( $$self{contenttype} );
-		$r->no_cache( 1 ) 	if ( $r->dir_config( 'NoCache' ) );
+		$r->content_type($$self{contenttype});
+		$r->no_cache(1) if ( $r->dir_config( 'NoCache' ) );
 
-		$$self{body_text} = join( "\n", @txt, "\n" );
+		$$self{body_text} = join("\n", @txt, "\n");
 
-		$frame->send( $r, $self );
+		$frame->send($r, $self);
 	};
 
-	$r->print( "Framing Error: $@" ) if ( $@ );
+	$r->print("Framing Error: $@") if ( $@ );
 
-	return( Apache2::Const::OK );
+	return(Apache2::Const::OK);
 } # END $self->handler
 
 #-------------------------------------------------
-# $self->opt( $var, $val )
+# $site->option($name, $value)
 #-------------------------------------------------
-sub opt {
-	my ( $self, $var, $val ) = @_;
-	
-	if ( defined $val ) {
-		return( $self->{$var} = $val );
+sub option {
+	my ($site, $name, $value) = @_;		
+
+	if ( defined $value ) { 
+		$site->{$name} = $value;
 	}
 	else {
-		return( $self->{$var} );
+		return($site->{$name})
 	}
-} # END $self->opt
+} # END $site->option()
 
 #-------------------------------------------------
 # $self->param( $apr )
@@ -195,16 +181,14 @@ sub param {
 
 	if ( $apr->param ) { 		# Make sure we have something.
 
-		#%in = %{$apr->param}; # Does not deal with multivalue.
-
 		for my $name ( $apr->param ) {
-			
+
 			if ( exists $in{$name} )  {
-				my @vals 	= $apr->param( $name );
+				my @vals 	= $apr->param($name);
 				$in{$name} 	= \@vals;
 			}
 			else {
-				$in{$name} = $apr->param( $name );
+				$in{$name} = $apr->param($name);
 			}
 		}
 	}
