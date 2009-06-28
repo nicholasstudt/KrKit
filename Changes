@@ -3,9 +3,7 @@
  
  This should contain the high points of changes between versions.
 
--- Random Notes --
  - How do you make an application namespace aware the easiest way?
- - Make an "opt" method to the handler to set/get variables.
  - Close down all "dirty" OO hacks used in code.
  - Move database connections/disconnections to init_app/cleanup_app
    maybe use actuall OO inheritance stuff so they can be named correctly
@@ -13,7 +11,10 @@
 ------------------
 
 0.22
-	- Commented out install of httpd.rc file.
+	- Moved httpd.rc to doc rather than bin -- reference not used.
+	- Updating documentation.
+	- Added _option method to the handler, gets and sets.
+	- Added an "option" method to the handler to set/get variables.
 
 0.21 Mon Dec 15 21:27:51 CST 2008
 	- use "our" for ISA, EXPORT etc.

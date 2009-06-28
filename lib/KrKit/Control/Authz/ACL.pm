@@ -1,8 +1,5 @@
 package KrKit::Control::Authz::ACL;
-######################################################################
-# $Id: ACL.pm,v 1.4 2005/08/26 21:52:42 nstudt Exp $
-# $Date: 2005/08/26 21:52:42 $
-######################################################################
+
 use strict;
 
 use Apache2::Access;
@@ -13,10 +10,6 @@ use KrKit::AppBase;
 use KrKit::DB;
 use KrKit::SQL;
 use KrKit::Control;
-
-############################################################
-# Variables                                                #
-############################################################
 
 ############################################################
 # Functions                                                #
@@ -248,11 +241,11 @@ FORBIDDEN to the user.
 
 =head1 AUTHOR
 
-Nicholas Studt <nstudt@angrydwarf.org>
+Nicholas Studt <nicholas@photodwarf.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2005 by Nicholas Studt. All rights reserved.
+Copyright (c) 1999-2009 by Nicholas Studt. All rights reserved.
 
 You may distribute under the terms of either the GNU General Public
 License or the Artistic License, as specified in the Perl README file.

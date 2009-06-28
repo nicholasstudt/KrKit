@@ -2,7 +2,7 @@
  KrKit - mod_perl 2.0 application development libraries
  ======================================================
 
- Copyright (c) 1999-2007 Nicholas Studt / Ron Andrews. All rights reserved.
+ Copyright (c) 1999-2009 Nicholas Studt / Ron Andrews. All rights reserved.
 
  You may distribute under the terms of either the GNU General Public
  License or the Artistic License, as specified in the Perl README file.
@@ -54,9 +54,9 @@
  Contributers
  ------------
  
- Nicholas Studt <nstudt@angrydwarf.org>         http://www.angrydwarf.org
+ Nicholas Studt <nicholas@photodwarf.org>         http://www.photodwarf.org
  Ron Andrews    <ron.andrews@cognilogic.net>    http://turtle.cognilogic.net
 
- Paul Espinosa  <paul@krkit.org>                http://www.ericius.com
+ Paul Espinosa  <akson@ericius.com>                http://www.ericius.com
  D. Hageman     <dhageman@dracken.com> 
  Frank Wiles    <frank@wiles.org>               http://www.wiles.org

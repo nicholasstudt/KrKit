@@ -5,7 +5,7 @@ use strict;
 ############################################################
 # Variables                                                #
 ############################################################
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 ############################################################
 # Functions                                                #
@@ -104,11 +104,11 @@ Limitations are listed in the modules they apply to.
 
 =head1 AUTHOR
 
-Nicholas Studt <nstudt@angrydwarf.org> and Ron Andrews <ron@cognilogic.net>
+Nicholas Studt <nicholas@photodwarf.org> and Ron Andrews <ron@cognilogic.net>
 
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2005 by Nicholas Studt. All rights reserved.
+Copyright (c) 1999-2009 by Nicholas Studt. All rights reserved.
 
 You may distribute under the terms of either the GNU General Public
 License or the Artistic License, as specified in the Perl README file.

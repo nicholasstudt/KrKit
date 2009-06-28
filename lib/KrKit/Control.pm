@@ -304,11 +304,11 @@ Limitations are listed in the modules they occur.
 
 =head1 AUTHOR
 
-Nicholas Studt <nstudt@angrydwarf.org>
+Nicholas Studt <nicholas@photodwarf.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2005 by Nicholas Studt. All rights reserved.
+Copyright (c) 1999-2009 by Nicholas Studt. All rights reserved.
 
 You may distribute under the terms of either the GNU General Public
 License or the Artistic License, as specified in the Perl README file.

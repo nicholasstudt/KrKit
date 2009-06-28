@@ -15,22 +15,22 @@ use KrKit::DB;
 # $site->_cleanroot( $uri, $root )
 #-------------------------------------------------
 sub _cleanroot {
-	my ( $site, $uri, $root ) = @_;
+	my ($site, $uri, $root) = @_;
 
 	$uri =~ s!^$root!!g;
 	$uri =~ s/\/\//\//g;
 	$uri =~ s/^\///;
 
-	return( split( '/', $uri ) );
+	return(split('/', $uri));
 } # END $site->_cleanroot
 
 #-------------------------------------------------
 # $site->_cleanup( $r )
 #-------------------------------------------------
 sub _cleanup {
-	my ( $site, $r ) = @_;
+	my ($site, $r) = @_;
 
- 	db_disconnect( $$site{dbh} );
+ 	db_disconnect($$site{dbh});
 
 	return();
 } # END $site->_cleanup
@@ -39,51 +39,65 @@ sub _cleanup {
 # $site->_decline()
 #-------------------------------------------------
 sub _decline {
-	my ( $site ) = @_;
+	my ($site) = @_;
 
 	$$site{_decline_} = 1; # Tag it for the handler to handle nice.
 
-	return( Apache2::Const::DECLINED );
+	return(Apache2::Const::DECLINED);
 } # END $site->_decline
 
 #-------------------------------------------------
 # $site->_init( $r );
 #-------------------------------------------------
 sub _init {
-	my ( $site, $r ) = @_; 
+	my ($site, $r) = @_; 
 
 	# Page specfic variables
-	$$site{'uri'}           = $r->uri;
-	$$site{'rootp'}         = $r->location;
-	$$site{'contenttype'}   = 'text/html';
-	$$site{'onpage_title'}  = ''; 
-	$$site{'frame'}			= $r->dir_config( 'Frame' );
-	$$site{'page_title'}	= ( $r->dir_config( 'SiteTitle' ) 	|| '' );
+	$site->_option('uri', $r->uri);
+	$site->_option('rootp', $r->location);
+	$site->_option('contenttype', 'text/html');
+	$site->_option('onpage_title', ''); 
+	$site->_option('frame', $r->dir_config('Frame'));
+	$site->_option('page_title', $r->dir_config('SiteTitle') || '');
 
 	# Not always used or set.
-	$$site{'help'}			= $r->dir_config( 'HelpRoot' ) 		|| '';
-	$$site{'smtp_host'}		= $r->dir_config( 'SMTP_Host' ) 	|| '';
+	$site->_option('help', $r->dir_config('HelpRoot') || '' );
+	$site->_option('smtp_host', $r->dir_config('SMTP_Host') || '');
 
 	# File Upload Variables.
-	$$site{'file_tmp'}		= $r->dir_config( 'File_Temp' ) 	|| '/tmp';
-	$$site{'file_path'}		= $r->dir_config( 'File_Path' ) 	|| '/tmp';
-	$$site{'file_uri'}		= $r->dir_config( 'File_URI' ) 		|| '/tmp';
-	$$site{'file_max'}		= $r->dir_config( 'File_PostMax' )  || '3145728';
+	$site->_option('file_tmp', $r->dir_config('File_Temp') || '/tmp');
+	$site->_option('file_path', $r->dir_config('File_Path') || '/tmp');
+	$site->_option('file_uri', $r->dir_config('File_URI') || '/tmp');
+	$site->_option('file_max', $r->dir_config('File_PostMax') || '3145728');
 		# 3MB post max limit.
 
 	# Date/Time formats.
-	$$site{'fmt_d'}			= $r->dir_config( 'Date_Format' ) 		|| '%x';
-	$$site{'fmt_t'}			= $r->dir_config( 'Time_Format' ) 		|| '%X';
-	$$site{'fmt_dt'}		= $r->dir_config( 'DateTime_Format' ) 	|| '%x %X';
+	$site->_option('fmt_d', $r->dir_config('Date_Format') || '%x');
+	$site->_option('fmt_t', $r->dir_config('Time_Format') || '%X');
+	$site->_option('fmt_dt', $r->dir_config('DateTime_Format') || '%x %X');
 
 	# Must happen last. 
-	$$site{'dbtype'} 	= $r->dir_config( 'DatabaseType' );
-	my $dbns			= $r->dir_config( 'DatabaseNameSpace' );
-	$$site{'dbns'}		= db_getnamespace( $$site{dbtype}, $dbns );
-	$$site{'dbh'}		= db_connect( appbase_get_dbparam( $r ) );
-
+	my $dbns = $r->dir_config('DatabaseNameSpace');
+	$site->_option('dbtype', $r->dir_config('DatabaseType'));
+	$site->_option('dbns', db_getnamespace($$site{dbtype}, $dbns));
+	$site->_option('dbh', db_connect(appbase_get_dbparam($r)));
+	
 	return();
 } # END $site->_init
+
+#-------------------------------------------------
+# $site->_option( $name, $value )
+#-------------------------------------------------
+sub _option {
+	my ($site, $name, $value) = @_;		
+
+	if ( defined $value ) { 
+		$site->{$name} = $value;
+	}
+	else {
+		return($site->{$name})
+	}
+} # END $site->_option()
 
 #-------------------------------------------------
 # $site->_relocate( $r, $location )
@@ -270,11 +284,11 @@ The main function has to be do_main where this is inherited.
 
 =head1 AUTHOR
 
-Nicholas Studt <nstudt@angrydwarf.org>
+Nicholas Studt <nicholas@photodwarf.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2005 by Nicholas Studt. All rights reserved.
+Copyright (c) 1999-2009 by Nicholas Studt. All rights reserved.
 
 You may distribute under the terms of either the GNU General Public
 License or the Artistic License, as specified in the Perl README file.
