@@ -10,8 +10,6 @@
  - Move database connections/disconnections to init_app/cleanup_app
    maybe use actuall OO inheritance stuff so they can be named correctly
    -- SUPER call based stuff.
-
- - Should KrKit just die and we port everything to Gantry ?
 ------------------
 
 0.22
