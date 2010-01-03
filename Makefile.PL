@@ -11,7 +11,7 @@ WriteMakefile(
 							'DBI' 				=> '0',
 							'Date::Calc' 		=> '0',
 							'Net::SMTP' 		=> '0',
-							'Apache2::Request'	=> '2.06',
+							'Apache2::Request'	=> '0',
 							"mod_perl2"			=> "0"
 						}, # e.g., Module::Name => 1.1
 
