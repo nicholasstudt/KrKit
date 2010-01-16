@@ -1,15 +1,72 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         KrKit
-version:      0.20
-version_from: lib/KrKit.pm
-installdirs:  site
+---
+name: KrKit
+version: 1.0
+author:
+  - 'Nicholas Studt <nicholas@photodwarf.org>'
+abstract: For when the average fails.
+license: perl
 requires:
-    Apache2::Request:              2.06
-    Date::Calc:                    0
-    DBI:                           0
-    mod_perl:                      2.000001
-    Net::SMTP:                     0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+  Apache2::Request: 0
+  DBI: 0
+  Date::Calc: 0
+  Net::SMTP: 0
+recommends:
+  DBD::Pg: 0
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
+provides:
+  KrKit:
+    file: lib/KrKit.pm
+    version: 1.0
+  KrKit::AppBase:
+    file: lib/KrKit/AppBase.pm
+  KrKit::Calendar:
+    file: lib/KrKit/Calendar.pm
+  KrKit::Control:
+    file: lib/KrKit/Control.pm
+  KrKit::Control::ACLs:
+    file: lib/KrKit/Control/ACLs.pm
+  KrKit::Control::Access:
+    file: lib/KrKit/Control/Access.pm
+  KrKit::Control::Authen:
+    file: lib/KrKit/Control/Authen.pm
+  KrKit::Control::Authen::Cookie:
+    file: lib/KrKit/Control/Authen/Cookie.pm
+  KrKit::Control::Authz:
+    file: lib/KrKit/Control/Authz.pm
+  KrKit::Control::Authz::ACL:
+    file: lib/KrKit/Control/Authz/ACL.pm
+  KrKit::Control::Groups:
+    file: lib/KrKit/Control/Groups.pm
+  KrKit::Control::Users:
+    file: lib/KrKit/Control/Users.pm
+  KrKit::DB:
+    file: lib/KrKit/DB.pm
+  KrKit::Framing:
+    file: lib/KrKit/Framing.pm
+  KrKit::Framing::Plain:
+    file: lib/KrKit/Framing/Plain.pm
+  KrKit::Framing::Template:
+    file: lib/KrKit/Framing/Template.pm
+  KrKit::HTML:
+    file: lib/KrKit/HTML.pm
+  KrKit::Handler:
+    file: lib/KrKit/Handler.pm
+  KrKit::Helper:
+    file: lib/KrKit/Helper.pm
+  KrKit::Helper::Category:
+    file: lib/KrKit/Helper/Category.pm
+  KrKit::Helper::Category::Items:
+    file: lib/KrKit/Helper/Category/Items.pm
+  KrKit::SQL:
+    file: lib/KrKit/SQL.pm
+  KrKit::Validate:
+    file: lib/KrKit/Validate.pm
+  KrKit::Xpander:
+    file: lib/KrKit/Xpander.pm
+  KrKit::Xpander::Admin:
+    file: lib/KrKit/Xpander/Admin.pm
+resources:
+  license: http://dev.perl.org/licenses/

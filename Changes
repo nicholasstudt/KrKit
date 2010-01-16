@@ -3,18 +3,11 @@
  
  This should contain the high points of changes between versions.
 
- - How do you make an application namespace aware the easiest way?
- - Close down all "dirty" OO hacks used in code.
- - Move database connections/disconnections to init_app/cleanup_app
-   maybe use actuall OO inheritance stuff so they can be named correctly
-   -- SUPER call based stuff.
-------------------
-
-0.22
+1.0 Sat Jan 16 16:36:09 CST 2010
 	- Moved httpd.rc to doc rather than bin -- reference not used.
 	- Updating documentation.
-	- Added _option method to the handler, gets and sets.
 	- Added an "option" method to the handler to set/get variables.
+	- Moved to Module::Build over ExtUtils::MakeMaker, goodbye make.
 
 0.21 Mon Dec 15 21:27:51 CST 2008
 	- use "our" for ISA, EXPORT etc.
