@@ -6,7 +6,6 @@
 1.0 Sat Jan 16 16:36:09 CST 2010
 	- Moved httpd.rc to doc rather than bin -- reference not used.
 	- Updating documentation.
-	- Added _option method to the handler, gets and sets.
 	- Added an "option" method to the handler to set/get variables.
 	- Moved to Module::Build over ExtUtils::MakeMaker, goodbye make.
 

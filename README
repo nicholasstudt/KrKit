@@ -13,9 +13,9 @@
  KrKit is primarily a web application development library. It contains
  simplified database connectivity, user authorization and
  authentication, a template system, a help system, inherited method
- handlers to simplfy development, and much more. 
+ handlers to simplify development, and much more. 
 
- The single biggest stregth of this development library is that unlike
+ The single biggest strength of this development library is that unlike
  most other environments is that the developer can use or discard the
  portions that they need. Every library is easy to Superclass or simple
  discard as you, the developer, see fit. While these libraries work in
