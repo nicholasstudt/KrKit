@@ -2,7 +2,7 @@ package KrKit;
 
 use strict;
 
-our $VERSION = '0.22';
+our $VERSION = '1.0';
 
 ############################################################
 # Functions                                                #
@@ -105,7 +105,7 @@ Nicholas Studt <nicholas@photodwarf.org> and Ron Andrews <ron@cognilogic.net>
 
 =head1 COPYRIGHT
 
-Copyright (c) 1999-2009 by Nicholas Studt. All rights reserved.
+Copyright (c) 1999-2010 by Nicholas Studt. All rights reserved.
 
 You may distribute under the terms of either the GNU General Public
 License or the Artistic License, as specified in the Perl README file.

@@ -2,11 +2,10 @@
  KrKit - mod_perl 2.0 application development libraries
  ======================================================
 
- Copyright (c) 1999-2009 Nicholas Studt / Ron Andrews. All rights reserved.
+ Copyright (c) 1999-2010 Nicholas Studt / Ron Andrews. All rights reserved.
 
  You may distribute under the terms of either the GNU General Public
  License or the Artistic License, as specified in the Perl README file.
-
 
  Overview
  --------
@@ -28,7 +27,7 @@
 
  The latest version can be found on the KrKit project site at
 
- 	http://www.krkit.org
+ 	http://code.photodwarf.org/
 
 
  Installation
@@ -41,22 +40,22 @@
 	Date::Calc
 	Net::SMTP
 
-	mod_perl-1.99_20
-	libapreq2-2.05
+	mod_perl 2
+	libapreq2
 
  To install this module type the following:
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+   perl Build.PL
+   ./Build
+   ./Build test
+   ./Build install
 
  Contributers
  ------------
  
- Nicholas Studt <nicholas@photodwarf.org>         http://www.photodwarf.org
+ Nicholas Studt <nicholas@photodwarf.org>       http://www.photodwarf.org
  Ron Andrews    <ron.andrews@cognilogic.net>    http://turtle.cognilogic.net
 
- Paul Espinosa  <akson@ericius.com>                http://www.ericius.com
+ Paul Espinosa  <akson@ericius.com>             http://www.ericius.com
  D. Hageman     <dhageman@dracken.com> 
  Frank Wiles    <frank@wiles.org>               http://www.wiles.org
