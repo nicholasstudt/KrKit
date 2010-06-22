@@ -387,7 +387,7 @@ KrKit::Helper::Category module and is entirely useless without it.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 

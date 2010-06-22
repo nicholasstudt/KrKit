@@ -361,7 +361,7 @@ before the stat happens. Slow machines or larger configs can cause this.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 

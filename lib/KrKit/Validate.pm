@@ -294,7 +294,7 @@ This module depends on Date::Calc(3) for the is_date validation.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 

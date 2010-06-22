@@ -130,7 +130,7 @@ the auth_* tables are in the same database as the application tables.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 

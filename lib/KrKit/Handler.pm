@@ -268,7 +268,7 @@ The main function has to be do_main where this is inherited.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 

@@ -2,7 +2,7 @@
 name: KrKit
 version: 1.0
 author:
-  - 'Nicholas Studt <nicholas@photodwarf.org>'
+  - 'Nicholas Studt <nicholas@nicholasstudt.com>'
 abstract: For when the average fails.
 license: perl
 requires:

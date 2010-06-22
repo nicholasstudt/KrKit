@@ -101,7 +101,7 @@ Limitations are listed in the modules they apply to.
 
 =head1 AUTHOR
 
-Nicholas Studt <nicholas@photodwarf.org> and Ron Andrews <ron@cognilogic.net>
+Nicholas Studt <nicholas@nicholasstudt.com> and Ron Andrews <ron@cognilogic.net>
 
 =head1 COPYRIGHT
 

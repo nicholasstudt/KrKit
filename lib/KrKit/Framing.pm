@@ -206,7 +206,7 @@ be used directly.
 
 =head1 AUTHOR 
 
-Nicholas Studt <nicholas@photodwarf.org>
+Nicholas Studt <nicholas@nicholasstudt.com>
 
 =head1 COPYRIGHT
 
